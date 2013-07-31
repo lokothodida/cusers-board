@@ -1,5 +1,4 @@
 <?php
-
   // create category/forum
   if (!empty($_POST['create_category']) || !empty($_POST['create_forum'])) {
     if (!empty($_POST['create_category'])) {
@@ -41,6 +40,12 @@
     if ($delete) $this->matrix->getAdminError(i18n_r(MatrixCUsers::FILE.'/DELETE_SUCCESS'), true);
     else         $this->matrix->getAdminError(i18n_r(MatrixCUsers::FILE.'/DELETE_ERROR'), false);
   }
+  // compatibility fix
+  if (isset($_GET['compatibility'])) {
+    $fix = $this->fixCompatibility();
+    if ($fix) $this->matrix->getAdminError(i18n_r(MatrixCUsers::FILE.'/COMPATIBILITY_SUCCESS'), true);
+    else      $this->matrix->getAdminError(i18n_r(MatrixCUsers::FILE.'/COMPATIBILITY_ERROR'), false);
+  }
   
   
 
@@ -56,6 +61,7 @@
 <h3 class="floated"><?php echo i18n_r(self::FILE.'/PLUGIN_SIDEBAR'); ?></h3>
 <div class="edit-nav">
   <a href="<?php echo $this->adminURL; ?>&backups"><?php echo i18n_r(MatrixCUsers::FILE.'/BACKUPS'); ?></a>
+  <a href="<?php echo $this->adminURL; ?>&compatibility"><?php echo i18n_r(MatrixCUsers::FILE.'/COMPATIBILITY'); ?></a>
   <a href="<?php echo $this->adminURL; ?>&config"><?php echo i18n_r(MatrixCUsers::FILE.'/CONFIG'); ?></a>
   <a href="<?php echo $this->adminURL; ?>&template=home"><?php echo i18n_r(MatrixCUsers::FILE.'/TEMPLATES'); ?></a>
   <a href="<?php echo $this->adminURL; ?>" class="current"><?php echo i18n_r(self::FILE.'/BOARD'); ?></a>

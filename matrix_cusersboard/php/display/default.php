@@ -99,11 +99,11 @@ EOT;
 $array['channel']['item']['home']['@cdata'] = '';
 
 $array['channel']['item']['category']['@cdata']     = <<<EOT
-<div class="tableWrap">
+<div class="table">
   <table class="category">
     <thead>
       <tr>
-        <th colspan="100%" class="head1"><a href="<?php echo \$this->getCategoryURL(\$category); ?>"><?php echo \$category['name']; ?></a></th>
+        <th colspan="100%" class="th1"><a href="<?php echo \$this->getCategoryURL(\$category); ?>"><?php echo \$category['name']; ?></a></th>
       </tr>
     </thead>
     <tbody>
@@ -112,12 +112,12 @@ $array['channel']['item']['category']['@cdata']     = <<<EOT
           \$topics = \$this->getTopics(\$forum);
         ?>
         <tr>
-          <td class="row2 forum">
+          <td class="td2 forum">
             <h3><a href="<?php echo \$this->getForumURL(\$forum); ?>"><?php echo \$forum['name']; ?></a></h3>
             <?php echo \$forum['description']; ?>
 		  </td>
-          <td class="row1 total"><?php echo \$topics['total']; ?> Topics</td>
-          <td class="row2 latest">
+          <td class="td1 total"><?php echo \$topics['total']; ?> Topics</td>
+          <td class="td2 latest">
             <?php if (\$topics['latest']) { ?>
             <a href="<?php echo \$this->getTopicURL(\$topics['latest']['topic']); ?>"><?php echo \$topics['latest']['topic']['subject']; ?></a><br />
             by <?php echo \$topics['latest']['user']['displayname']; ?><br />
@@ -134,11 +134,11 @@ $array['channel']['item']['category']['@cdata']     = <<<EOT
 EOT;
 
 $array['channel']['item']['forum']['@cdata'] = <<<EOT
-<div class="tableWrap">
+<div class="table">
   <table>
     <thead>
       <tr>
-        <th colspan="100%" class="head1"><a href="<?php echo \$this->getForumURL(\$forum); ?>"><?php echo \$forum['name']; ?></a></th>
+        <th colspan="100%" class="th1"><a href="<?php echo \$this->getForumURL(\$forum); ?>"><?php echo \$forum['name']; ?></a></th>
       </tr>
     </thead>
     <tbody>
@@ -147,12 +147,12 @@ $array['channel']['item']['forum']['@cdata'] = <<<EOT
           \$posts = \$this->getPosts(\$topic['id']);
         ?>
         <tr>
-          <td class="row2 <?php echo \$topic['type']; ?> <?php echo \$topic['status']; ?>">
+          <td class="td2 <?php echo \$topic['type']; ?> <?php echo \$topic['status']; ?>">
             <h3><a href="<?php echo \$this->getTopicURL(\$topic); ?>"><?php echo \$topic['subject']; ?></a></h3>
             <span>By <a href="<?php echo \$this->core->getProfileURL(\$topic['author']['username']); ?>"><?php echo \$topic['author']['displayname']; ?></a></span>
           </td>
-          <td class="row1"><?php echo \$posts['total']; ?> Posts</td>
-          <td class="row2">
+          <td class="td1"><?php echo \$posts['total']; ?> Posts</td>
+          <td class="td2">
           <?php if (\$posts['latest']) { ?>
             by <a href="<?php echo \$this->core->getProfileURL(\$posts['latest']['user']['username']); ?>"><?php echo \$posts['latest']['user']['displayname']; ?></a><br />
             <?php echo \$this->core->date(\$posts['latest']['post']['credate']); ?><br />
@@ -164,7 +164,7 @@ $array['channel']['item']['forum']['@cdata'] = <<<EOT
       <?php } ?>
       <?php if (empty(\$topics)) { ?>
       <tr>
-        <td colspan="100%" class="row1">No topics</td>
+        <td colspan="100%" class="td1">No topics</td>
       </tr>
       <?php } ?>
     </tbody>
@@ -173,11 +173,11 @@ $array['channel']['item']['forum']['@cdata'] = <<<EOT
 EOT;
 
 $array['channel']['item']['topic']['@cdata'] = <<<EOT
-<div class="tableWrap">
+<div class="table">
   <table>
     <thead>
       <tr>
-        <th colspan="100%" class="head1"><a href="<?php echo \$this->getTopicURL(\$topic); ?>"><?php echo \$topic['subject']; ?></a></th>
+        <th colspan="100%" class="th1"><a href="<?php echo \$this->getTopicURL(\$topic); ?>"><?php echo \$topic['subject']; ?></a></th>
       </tr>
     </thead>
     <tbody>
@@ -188,14 +188,14 @@ $array['channel']['item']['topic']['@cdata'] = <<<EOT
           \$editor = \$users[\$post['editor']];
         ?>
         <tr>
-          <td class="row2 profile">
+          <td class="td2 profile">
             <!--profile-->
               <h3><a href="<?php echo \$this->core->getProfileURL(\$user['username']); ?>"><?php echo \$user['displayname']; ?></a></h3>
               <p><?php echo \$this->core->displayAvatar(\$user); ?></p>
               <p>Email: <?php echo \$user['email']; ?></p>
               <p>Posts: <?php echo \$user['posts']; ?></p>
           </td>
-          <td class="row1 post">
+          <td class="td1 post">
             <!--post-->
             <div class="date">
 				<span style="display: block; float: left; padding: 4px 0 4px 0;">Posted <?php echo \$this->core->date(\$post['credate']); ?></span>

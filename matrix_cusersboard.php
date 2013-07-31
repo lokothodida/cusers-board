@@ -11,23 +11,23 @@
   require_once(GSPLUGINPATH.$thisfile.'/php/main.class.php');
   
 # class instantiation
-  $mcusersboard = new MatrixCUsersBoard; // instantiate class
+  $mcusersboard = new MatrixCUsersBoard;
 
 # register plugin
   register_plugin(
-    $mcusersboard->pluginInfo('id'),           // id
-    $mcusersboard->pluginInfo('name'),         // name
-    $mcusersboard->pluginInfo('version'),      // version
-    $mcusersboard->pluginInfo('author'),       // author
-    $mcusersboard->pluginInfo('url'),          // url
-    $mcusersboard->pluginInfo('description'),  // description
-    $mcusersboard->pluginInfo('page'),         // page type - on which admin tab to display
-    array($mcusersboard, 'admin')              // administration function
+    $mcusersboard->pluginInfo('id'),
+    $mcusersboard->pluginInfo('name'),
+    $mcusersboard->pluginInfo('version'),
+    $mcusersboard->pluginInfo('author'),
+    $mcusersboard->pluginInfo('url'),
+    $mcusersboard->pluginInfo('description'),
+    $mcusersboard->pluginInfo('page'),
+    array($mcusersboard, 'admin')
   );
 
 # activate actions/filters
   # front-end
-    add_action('error-404', array($mcusersboard, 'display')); // display for plugin
+    add_action('error-404', array($mcusersboard, 'display'));
   # back-end
     add_action($mcusersboard->pluginInfo('page').'-sidebar', 'createSideMenu' , array($mcusersboard->pluginInfo('id'), $mcusersboard->pluginInfo('sidebar'))); // sidebar link
     add_action('search-index',   array($mcusersboard, 'searchIndex'));
