@@ -93,7 +93,18 @@ $array['channel']['item']['header']['@cdata']   = <<<EOT
     font-size: 80%;
     padding: 3px;
   }
+  .crumbs {
+    font-size: 80%;
+    margin: 0 0 5px 0;
+  }
+  .admin {
+    font-size: 80%;
+    margin: 5px 0 0 0;
+  }
 </style>
+<div class="crumbs">
+  <?php cusers_board_breadcrumbs(); ?>
+</div>
 EOT;
 
 $array['channel']['item']['home']['@cdata'] = '';
@@ -215,7 +226,6 @@ $array['channel']['item']['topic']['@cdata'] = <<<EOT
 EOT;
 
 $array['channel']['item']['footer']['@cdata'] = <<<EOT
-<div class="footer">Powered by <a href="http://get-simple.info/extend/plugin/cusers-message-board/663/">Centralized Users: Message Board</a> Version <?php echo self::VERSION; ?></div>
 EOT;
 
 ?>

@@ -26,11 +26,11 @@ if (
   <div class="page_navigation">
   <?php echo $results['links']; ?>
   </div>
-  <div class="tableWrap">
+  <div class="table">
     <table>
       <thead>
         <tr>
-          <th class="head1" colspan="100%"><?php echo i18n_r(MatrixCUsers::FILE.'/SEARCH'); ?></th>
+          <th class="th1" colspan="100%"><?php echo i18n_r(MatrixCUsers::FILE.'/SEARCH'); ?></th>
         </tr>
       </thead>
       <tbody>
@@ -40,14 +40,14 @@ if (
           if ($result->resultType == 't') {
           $topic = $this->searchItem2Array(self::TABLE_TOPICS, $result);
         ?>
-          <td class="row1"><h3><a href="<?php echo $this->getTopicURL($topic); ?>"><?php echo $topic['subject']; ?></a></h3></td>
+          <td class="td1"><h3><a href="<?php echo $this->getTopicURL($topic); ?>"><?php echo $topic['subject']; ?></a></h3></td>
         <?php } else {
           $post = $this->searchItem2Array(self::TABLE_POSTS, $result);
         ?>
-        <td class="row2" style="width: 20%;">
+        <td class="td2" style="width: 20%;">
           <h3><a href="<?php echo $this->core->getProfileURL($post['author']['username']); ?>"><?php echo $post['author']['displayname']; ?></a></h3>
         </td>
-        <td class="row1" style="width: 80%;">
+        <td class="td1" style="width: 80%;">
           <h3><a href="<?php echo $this->getTopicURL($post['topic']); ?>"><?php echo $post['topic']['subject']; ?></a></h3>
           <?php echo $this->parser->bbcode($post['content']); ?>
         </td>
@@ -55,7 +55,7 @@ if (
         <?php } ?>
         </tr>
         <tr>
-          <td class="row2" colspan="100%" style="height: 5px;"></td>
+          <td class="td2" colspan="100%" style="height: 5px;"></td>
         </tr>
         <?php } ?>
       </tbody>
@@ -69,24 +69,25 @@ if (
 else {
 ?>
   <form method="post">
-    <div class="tableWrap">  
+    <div class="table">  
       <table>
         <thead>
           <tr>
-            <th class="head1" colspan="100%"><?php echo i18n_r(MatrixCUsers::FILE.'/SEARCH'); ?></th>
+            <th class="th1" colspan="100%"><?php echo i18n_r(MatrixCUsers::FILE.'/SEARCH'); ?></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="row1" style="width: 50%;">
+            <td class="td1" style="width: 50%;">
               <input type="text" name="words" placeholder="<?php echo i18n_r(MatrixCUsers::FILE.'/WORDS'); ?>">
               <input type="text" name="tags" placeholder="<?php echo i18n_r(MatrixCUsers::FILE.'/TAGS'); ?>">
             </td>
-            <td class="row1" style="width: 50%;">
+            <td class="td1" style="width: 50%;">
               <select name="user">
                 <option value="">-- <?php echo i18n_r(MatrixCUsers::FILE.'/USER'); ?> --</option>
                 <?php
                   $users = $this->getUsers();
+                  unset($users['-1']);
                   foreach ($users as $user) {
                 ?>
                 <option value="_cuser_<?php echo $user['username']; ?>"><?php echo $user['displayname']; ?></option>
@@ -97,12 +98,12 @@ else {
         </tbody>
         <thead>
           <tr>
-            <th class="head1" colspan="100%"><?php echo i18n_r(MatrixCUsers::FILE.'/OPTIONS'); ?></th>
+            <th class="th1" colspan="100%"><?php echo i18n_r(MatrixCUsers::FILE.'/OPTIONS'); ?></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="row1" colspan="100%" style="text-align: center;">
+            <td class="td1" colspan="100%" style="text-align: center;">
               <select name="sortBy">
                 <option value="subject"><?php echo i18n_r(MatrixCUsers::FILE.'/SUBJECT'); ?></option>
                 <option value="credate"><?php echo i18n_r(MatrixCUsers::FILE.'/DATE'); ?></option>

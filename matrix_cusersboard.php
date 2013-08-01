@@ -32,6 +32,13 @@
     add_action($mcusersboard->pluginInfo('page').'-sidebar', 'createSideMenu' , array($mcusersboard->pluginInfo('id'), $mcusersboard->pluginInfo('sidebar'))); // sidebar link
     add_action('search-index',   array($mcusersboard, 'searchIndex'));
     add_filter('search-item',    array($mcusersboard, 'searchItem'));
-    add_filter('search-display', array($mcusersboard, 'searchDisplay'));  
+    add_filter('search-display', array($mcusersboard, 'searchDisplay')); 
+    
+# functions
+  # breadcrumbs
+  function cusers_board_breadcrumbs($delim = '&nbsp;&nbsp;&bull;&nbsp;&nbsp;') {
+    global $mcusersboard;
+    $mcusersboard->displayBreadcrumbs($mcusersboard->getBreadcrumbs(), $delim);
+  }
     
 ?>
