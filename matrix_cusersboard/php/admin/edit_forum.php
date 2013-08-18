@@ -23,13 +23,7 @@
   $this->loadBoard();
 ?>
 
-<h3 class="floated"><?php echo i18n_r(self::FILE.'/FORUM'); ?></h3>
-
-<div class="edit-nav">
-  <a href="<?php echo $this->adminURL; ?>"><?php echo i18n_r(MatrixCUsers::FILE.'/BACK'); ?></a>
-  <a href="<?php echo $this->adminURL; ?>&forum=create" class="current"><?php echo i18n_r(self::FILE.'/FORUM'); ?></a>
-  <div class="clear"></div>
-</div>
+<h3><?php echo i18n_r(self::FILE.'/FORUM'); ?></h3>
 
 <form method="post">
   <p><?php $this->matrix->displayField(self::TABLE_FORUMS, 'name', $forum['name']); ?></p>
@@ -51,5 +45,7 @@
   </div>
   <div class="clear"></div>
   <p><?php $this->matrix->displayField(self::TABLE_FORUMS, 'description', $forum['description'], true); ?></p>
-  <input type="submit" class="submit" value="<?php echo i18n_r('BTN_SAVECHANGES'); ?>">
+  <input type="submit" class="submit" value="<?php echo i18n_r('BTN_SAVECHANGES'); ?>">&nbsp;&nbsp;
+  / 
+  <a href="<?php echo $this->adminURL; ?>" class="cancel"><?php echo i18n_r(MatrixCUsers::FILE.'/BACK'); ?></a>
 </form>

@@ -7,18 +7,23 @@
       'oldname' => 'category_name',
       'name' => 'name',
       'label' => i18n_r(MatrixCUsers::FILE.'/NAME'),
-      'type' => 'textlong',
+      'type' => 'input',
+      'mask' => 'long',
     ),
     array(
       'name' => 'slug',
       'label' => i18n_r(MatrixCUsers::FILE.'/SLUG'),
-      'type' => 'slug',
+      'type' => 'input',
+      'mask' => 'slug',
+      'class' => 'left',
     ),
     array(
       'oldname' => 'category_order',
       'name' => 'order',
       'label' => i18n_r(self::FILE.'/ORDER'),
-      'type' => 'int',
+      'type' => 'input',
+      'mask' => 'number',
+      'class' => 'right',
     ),
   );
   $tables[self::TABLE_CATEGORIES]['maxrecords'] = 0;
@@ -36,7 +41,7 @@
     array(
       'oldname' => 'forum_name',
       'name' => 'name',
-      'desc' => i18n_r(MatrixCUsers::FILE.'/NAME'),
+      'placeholder' => i18n_r(MatrixCUsers::FILE.'/NAME'),
       'type' => 'textlong',
       'required' => 'required',
     ),
@@ -206,7 +211,7 @@
       'oldname' => 'board_name',
       'name' => 'title',
       'type' => 'textlong',
-      'desc' => i18n_r(MatrixCUsers::FILE.'/NAME'),
+      'placeholder' => i18n_r(MatrixCUsers::FILE.'/NAME'),
       'default' => 'Your GetSimple Board',
     ),
     array(
@@ -214,7 +219,7 @@
       'name' => 'credate',
       'type' => 'datetimelocal',
       'label' => i18n_r(MatrixCUsers::FILE.'/REGISTERED'),
-      'default' => 'board',
+      'default' => time(),
       'class' => 'leftsec',
     ),
     array(

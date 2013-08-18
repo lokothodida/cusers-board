@@ -55,11 +55,12 @@
   
   <!--template-->
   <form method="post">
-    <textarea name="edit-template" class="codeeditor DM_codeeditor text" id="post-edit-template"><?php echo $template; ?></textarea>
     <?php
-      // get codemirror script
-      $this->matrix->initialiseCodeMirror();
-      $this->matrix->instantiateCodeMirror('edit-template');
+      $params = array();
+      $params['properties'] = 'name="edit-template" class="codeeditor DM_codeeditor text" id="post-edit-template"';
+      $params['value'] = $template;
+      $params['id'] = 'post-edit-template';
+      $this->matrix->getEditor($params);
     ?>
     <input type="submit" name="save" class="submit" value="<?php echo i18n_r('BTN_SAVECHANGES'); ?>"/>&nbsp;&nbsp; /&nbsp;
     <a href="<?php echo $this->adminURL; ?>" class="cancel"><?php echo i18n_r(MatrixCUsers::FILE.'/BACK'); ?></a>

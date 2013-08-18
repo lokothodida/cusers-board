@@ -3,7 +3,7 @@
 class MatrixCUsersBoard {
   /* constants */
   const FILE              = 'matrix_cusersboard';
-  const VERSION           = '1.01';
+  const VERSION           = '1.02';
   const AUTHOR            = 'Lawrence Okoth-Odida';
   const URL               = 'http://lokida.co.uk';
   const PAGE              = 'plugins';
@@ -74,10 +74,7 @@ class MatrixCUsersBoard {
       $this->config['topic-types']       = array(i18n_r(self::FILE.'/NORMAL'), i18n_r(self::FILE.'/STICKY'), i18n_r(self::FILE.'/ANNOUNCEMENT'));
       $this->config['topic-statuses']    = array(i18n_r(MatrixCUsers::FILE.'/OPEN'), i18n_r(self::FILE.'/STICKY'), i18n_r(MatrixCUsers::FILE.'/CLOSED'));
       
-      
       $this->createTables();
-      
-      
       
       // configuration
       $config = $this->matrix->query('SELECT * FROM '.self::TABLE_CONFIG.' ORDER BY id DESC', 'SINGLE');
@@ -178,8 +175,8 @@ class MatrixCUsersBoard {
   # check dependencies
   private function checkDependencies() {
     if (
-      (class_exists('TheMatrix') && TheMatrix::VERSION >= '1.02') &&
-      (class_exists('MatrixCUsers') && MatrixCUsers::VERSION >= '1.01') && 
+      (class_exists('TheMatrix') && TheMatrix::VERSION >= '1.03') &&
+      (class_exists('MatrixCUsers') && MatrixCUsers::VERSION >= '1.02') && 
       function_exists('i18n_init') &&
       function_exists('get_i18n_search_results') 
     ) return true;
@@ -190,11 +187,11 @@ class MatrixCUsersBoard {
   private function missingDependencies() {
     $dependencies = array();
     
-    if (!(class_exists('TheMatrix') && TheMatrix::VERSION >= '1.02')) {
-      $dependencies[] = array('name' => 'The Matrix (1.02+)', 'url' => 'https://github.com/n00dles/DM_matrix/');
+    if (!(class_exists('TheMatrix') && TheMatrix::VERSION >= '1.03')) {
+      $dependencies[] = array('name' => 'The Matrix (1.03+)', 'url' => 'https://github.com/n00dles/DM_matrix/');
     }
-    if (!(class_exists('MatrixCUsers') && MatrixCUsers::VERSION >= '1.01')) {
-      $dependencies[] = array('name' => 'Centralized Users (1.01+)', 'url' => 'http://get-simple.info/extend/plugin/centralised-users/657/');
+    if (!(class_exists('MatrixCUsers') && MatrixCUsers::VERSION >= '1.02')) {
+      $dependencies[] = array('name' => 'Centralized Users (1.02+)', 'url' => 'http://get-simple.info/extend/plugin/centralised-users/657/');
     }
     if (!function_exists('i18n_init')) {
       $dependencies[] = array('name' => 'I18N (3.2.3+)', 'url' => 'http://get-simple.info/extend/plugin/i18n/69/');
@@ -371,6 +368,7 @@ class MatrixCUsersBoard {
     
     // category
     $categories = glob($matrixpath.self::TABLE_CATEGORIES.'/*.xml');
+    $categoriesSchema = $this->matrix->getSchema(self::TABLE_CATEGORIES);
     foreach ($categories as $category) {
       $id = trim(str_replace(array($matrixpath.self::TABLE_CATEGORIES.'/', '.xml'), '', $category));
       $record = $this->matrix->recordExists(self::TABLE_CATEGORIES, $id);
@@ -380,9 +378,17 @@ class MatrixCUsersBoard {
       }
       $this->matrix->updateRecord(self::TABLE_CATEGORIES, $id, $update);
     }
+    if ($categoriesSchema['fields']['slug']['class'] != 'leftsec') {
+      $categoriesSchema['fields']['slug']['class'] = 'leftsec';
+    }
+    if ($categoriesSchema['fields']['order']['class'] != 'rightsec') {
+      $categoriesSchema['fields']['order']['class'] = 'rightsec';
+    }
+    $this->matrix->modSchema(self::TABLE_CATEGORIES, $categoriesSchema);
     
-    // forum
+    // forum(s)
     $forums = glob($matrixpath.self::TABLE_FORUMS.'/*.xml');
+    $forumSchema = $this->matrix->getSchema(self::TABLE_FORUMS);
     foreach ($forums as $forum) {
       $id = trim(str_replace(array($matrixpath.self::TABLE_FORUMS.'/', '.xml'), '', $forum));
       $record = $this->matrix->recordExists(self::TABLE_FORUMS, $id);
@@ -392,6 +398,13 @@ class MatrixCUsersBoard {
       }
       $this->matrix->updateRecord(self::TABLE_FORUMS, $id, $update);
     }
+    foreach ($forumSchema['fields'] as $field => $attributes) {
+      if (empty($attributes['placeholder']) && !empty($attributes['desc'])) {
+        $forumSchema['fields'][$field]['placeholder'] = $attributes['desc'];
+        $forumSchema['fields'][$field]['desc'] = $attributes['placeholder'];
+      }
+    }
+    $this->matrix->modSchema(self::TABLE_FORUMS, $forumSchema);
     
     // topics
     $topics = glob($matrixpath.self::TABLE_TOPICS.'/*.xml');
